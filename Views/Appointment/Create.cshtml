@@ -1,0 +1,42 @@
+﻿@model KuaforApp.Models.ViewModels.AppointmentViewModel
+
+<h2>Randevu Al</h2>
+
+@if (ViewData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @ViewData["Error"]
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<form method="post">
+    <div class="mb-3">
+        <label for="EmployeeId" class="form-label">Berber Seç</label>
+        <select class="form-select" id="EmployeeId" name="EmployeeId">
+            @foreach (var emp in Model.Employees)
+            {
+                <option value="@emp.EmployeeId">@emp.EmployeeName</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="SelectedDate" class="form-label">Tarih</label>
+        <input type="date" class="form-control" id="SelectedDate" name="SelectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="mb-3">
+        <label for="SelectedTime" class="form-label">Saat</label>
+        <input type="time" class="form-control" id="SelectedTime" name="SelectedTime" value="@Model.SelectedTime.ToString(@"hh\:mm")" />
+    </div>
+    <div class="mb-3">
+        <label for="Notes" class="form-label">Notlar</label>
+        <textarea class="form-control" id="Notes" name="Notes" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Randevu Al</button>
+</form>

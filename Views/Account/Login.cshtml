@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<h2>Giriş</h2>
+<form method="post">
+    <div>
+        <label>Telefon Numarası:</label>
+        <input type="text" name="PhoneNumber" />
+    </div>
+    <div>
+        <label>Şifre:</label>
+        <input type="password" name="Password" />
+    </div>
+    <button type="submit">Giriş Yap</button>
+</form>
+
+@if(ViewData["Error"] != null)
+{
+    <div style="color:red">@ViewData["Error"]</div>
+}

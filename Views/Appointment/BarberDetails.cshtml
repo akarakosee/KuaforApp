@@ -1,0 +1,35 @@
+﻿@model KuaforApp.Models.ViewModels.BarberDetailsViewModel
+
+<h2>@Model.EmployeeName - Randevu Detayları</h2>
+<form method="post" asp-action="BarberDetails">
+    <input type="hidden" name="EmployeeId" value="@Model.EmployeeId" />
+    <div class="mb-3">
+        <label>Hizmetler:</label><br />
+        @for (int i = 0; i < Model.Services.Count; i++)
+        {
+            var svc = Model.Services[i];
+            <input type="checkbox" name="Services[@i].Selected" value="true" />
+            <input type="hidden" name="Services[@i].ServiceId" value="@svc.ServiceId" />
+            <input type="hidden" name="Services[@i].ServiceName" value="@svc.ServiceName" />
+            @svc.ServiceName <br />
+        }
+    </div>
+    <div class="mb-3">
+        <label>Tarih:</label>
+        <input type="date" name="SelectedDate" class="form-control" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="mb-3">
+        <label>Saat:</label>
+        <input type="time" name="SelectedTime" class="form-control" value="@Model.SelectedTime.ToString(@"hh\:mm")" />
+    </div>
+    <div class="mb-3">
+        <label>Notlar:</label>
+        <textarea name="Notes" class="form-control">@Model.Notes</textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Randevu Al</button>
+</form>
+
+@if (ViewData["Error"] != null)
+{
+    <div class="alert alert-danger">@ViewData["Error"]</div>
+}

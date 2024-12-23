@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<h2>Kayıt Ol</h2>
+<form method="post">
+    <div>
+        <label>Ad Soyad:</label>
+        <input type="text" name="FullName" />
+    </div>
+    <div>
+        <label>Telefon Numarası:</label>
+        <input type="text" name="PhoneNumber" />
+    </div>
+    <div>
+        <label>Şifre:</label>
+        <input type="password" name="Password" />
+    </div>
+    <button type="submit">Kayıt Ol</button>
+</form>
+
+@if (ViewData["Error"] != null)
+{
+    <div style="color:red">@ViewData["Error"]</div>
+}
