@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h2>Hoş Geldiniz</h2>
+        <p>KuaforApp ile en iyi kuaför/berber salonlarını keşfedebilir, uzmanlık alanlarına göre çalışanları seçip kolayca randevu alabilirsiniz.</p>
+
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="alert alert-warning">
+                Randevu almak için lütfen <a asp-controller="Account" asp-action="Register" class="alert-link">kayıt olun</a> veya <a asp-controller="Account" asp-action="Login" class="alert-link">giriş yapın</a>.
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-success">
+                Hoş geldiniz @User.Identity.Name!
+                <a asp-controller="Salon" asp-action="Index" class="btn btn-sm btn-primary ms-2">Salonları Gör</a>
+            </div>
+        }
+
+        <h4 class="mt-4">Fotoğraf Yükle ve Öneri Al (Yapay Zeka)</h4>
+        <div class="card p-3 mb-4">
+            <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="GetHairSuggestions">
+                <div class="mb-3">
+                    <label for="photo" class="form-label">Dosya Seç</label>
+                    <input type="file" class="form-control" name="photo" id="photo" />
+                </div>
+                <button type="submit" class="btn btn-primary">Öneri Al</button>
+            </form>
+            @if (ViewData["SuggestedStyle"] != null)
+            {
+                <div class="mt-3">
+                    <h5 class="text-success">Önerilen Saç Modeli: @ViewData["SuggestedStyle"]</h5>
+                    <h5 class="text-success">Önerilen Saç Rengi: @ViewData["SuggestedColor"]</h5>
+                </div>
+            }
+            @if (ViewData["Error"] != null)
+            {
+                <div class="alert alert-danger mt-2">@ViewData["Error"]</div>
+            }
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <h4>Öne Çıkan Salonlar</h4>
+        <ul class="list-group">
+            @* Varsayılan olarak son 3 salon görüntülemek için controller’da bir sorgu yapıp ViewBag.Salons gönderebilirsiniz *@
+            @if (ViewBag.Salons != null)
+            {
+                foreach (var salon in ViewBag.Salons)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        @salon.Name
+                        <a asp-controller="Salon" asp-action="Details" asp-route-id="@salon.Id" class="badge bg-primary rounded-pill">Git</a>
+                    </li>
+                }
+            }
+            else
+            {
+                <li class="list-group-item">Henüz kayıtlı salon yok.</li>
+            }
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+﻿@model KuaforApp.Models.Service
+@{
+    ViewData["Title"] = Model.Name + " Detay";
+}
+
+<h2>@Model.Name Detay</h2>
+<p><strong>Fiyat:</strong> @Model.Price</p>
+<p><strong>Süre:</strong> @Model.DurationInMinutes dk</p>
+<p><strong>Salon:</strong> @Model.Salon?.Name</p>

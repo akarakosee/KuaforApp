@@ -1,0 +1,28 @@
+﻿@model IEnumerable<KuaforApp.Models.Service>
+@{
+    ViewData["Title"] = "Hizmetler";
+}
+
+<h2>Hizmet Listesi</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Hizmet Adı</th>
+            <th>Süre (dk)</th>
+            <th>Fiyat</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var service in Model)
+        {
+            <tr>
+                <td>@service.Name</td>
+                <td>@service.DurationInMinutes</td>
+                <td>@service.Price</td>
+                <td><a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@service.Id">Detay</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

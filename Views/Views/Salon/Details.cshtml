@@ -1,0 +1,45 @@
+﻿@model KuaforApp.Models.Salon
+@{
+    ViewData["Title"] = Model.Name + " Detay";
+}
+
+<h2>@Model.Name Detay</h2>
+<p><strong>Adres:</strong> @Model.Address</p>
+<p><strong>Çalışma Saatleri:</strong> @Model.OpeningHour - @Model.ClosingHour</p>
+
+<h3>Hizmetler</h3>
+<ul class="list-group mb-3">
+    @foreach (var service in Model.Services)
+    {
+        <li class="list-group-item d-flex justify-content-between">
+            <span>@service.Name (@service.DurationInMinutes dk) - @service.Price ₺</span>
+        </li>
+    }
+</ul>
+
+<h3>Çalışanlar (Uzmanlık Alanları)</h3>
+@foreach (var emp in Model.Employees)
+{
+    <div class="mb-3 p-3 bg-light border rounded">
+        <h5>@emp.FullName</h5>
+        <p class="mb-1">Müsaitlik: @emp.StartAvailability - @emp.EndAvailability</p>
+        <strong>Uzmanlıklar:</strong>
+        <ul>
+            @foreach (var es in emp.EmployeeServices)
+            {
+                <li>@es.Service.Name</li>
+            }
+        </ul>
+    </div>
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <a asp-area="" asp-controller="Appointment" asp-action="Create" class="btn btn-success">Bu Salondan Randevu Al</a>
+}
+else
+{
+    <div class="alert alert-info mt-3">
+        Randevu almak için lütfen giriş yapın.
+    </div>
+}

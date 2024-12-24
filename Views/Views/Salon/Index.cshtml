@@ -1,0 +1,21 @@
+﻿@model IEnumerable<KuaforApp.Models.Salon>
+@{
+    ViewData["Title"] = "Salonlar";
+}
+
+<h2>Salon Listesi</h2>
+<div class="row">
+    @foreach (var salon in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@salon.Name</h5>
+                    <p class="card-text">@salon.Address</p>
+                    <p class="text-muted">Çalışma: @salon.OpeningHour - @salon.ClosingHour</p>
+                    <a asp-action="Details" asp-route-id="@salon.Id" class="btn btn-sm btn-primary">Detay</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
