@@ -16,7 +16,7 @@
         public ApplicationUser User { get; set; } = null!;
         public DateTime Date { get; set; }
         public TimeSpan Time { get; set; } // Yeni alan
-        public string Notes { get; set; } = string.Empty;
+        public string Notes { get; set; } = "";
     }
     public class AppointmentService
     {
